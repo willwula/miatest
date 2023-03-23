@@ -12,6 +12,7 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $validated = $this->validate($request, [
+            // docs: available validation rules
             'name' => 'required|string|max:20',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|alpha_num:ascii|min:6|max:255|confirmed'
@@ -22,10 +23,15 @@ class RegisterController extends Controller
         // 即使使用者多輸入欄位，也會被過濾只剩下這三個
 //        dd($validated);
 
+        abort_if(
+            User::where('email', $request->input('email'))->first(),
+            Response::HTTP_BAD_REQUEST,
+            __('auth.duplicate email')
+        );
 //        abort_if(
-//            User::where('email', $request->input('email'))->first(),
+//            (bool)User::where('email', $request->input('email'))->first(),
 //            Response::HTTP_BAD_REQUEST,
-//            __('auth.duplicate email')
+//            __("此 email 已經註冊過")
 //        );
 //
 //        $validated['password'] = \Hash::make($request->input('password'));
@@ -37,7 +43,11 @@ class RegisterController extends Controller
         );
 
 //        return 'registered';
-        return response(['data' => $user]);
+//        return response([
+//            'data' => $user,
+//            'message' => "註冊成功"
+//            ], 201);
+        return \response($user,201);
     }
 
 }
