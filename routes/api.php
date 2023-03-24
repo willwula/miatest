@@ -25,7 +25,7 @@ Route::prefix('user')->group( function () {
         Route::get('logout', [\App\Http\Controllers\AuthController::class, 'logout']);
         Route::apiResource('books', \App\Http\Controllers\BookController::class)
             // apiResource 預設有 index, show, store, update, destroy
-            ->only('store');
+            ->only('index','store');
     });
 });
 

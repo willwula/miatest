@@ -12,7 +12,8 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
-    const ROLE_NORMAL = 2;
+    const ROLE_NORMAL = 2; // 一般會員身份
+    const ROLE_ADMIN= 1; //管理者身份
     /**
      * The attributes that are mass assignable.
      *
@@ -68,5 +69,9 @@ class User extends Authenticatable implements JWTSubject
     public function hsaPermissionToCreateBook()
     {
         //...登入角色符合權限
+    }
+    public function isAdmin()
+    {
+        return $this->role === self::ROLE_ADMIN;
     }
 }
