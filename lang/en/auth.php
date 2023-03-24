@@ -16,5 +16,6 @@ return [
     'failed' => 'These credentials do not match our records.',
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'duplicate email' => "此 email 已經註冊過"
 
 ];
