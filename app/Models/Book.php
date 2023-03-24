@@ -18,5 +18,13 @@ class Book extends Model
     // 使用者只能新增、編輯、刪除自己的書單
         //
 
+    protected $fillable = [
+        'name',
+        'author',
+    ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
 }

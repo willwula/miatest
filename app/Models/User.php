@@ -60,4 +60,13 @@ class User extends Authenticatable implements JWTSubject
         // jwt套件
         return [];
     }
+    public function books()
+    {
+        return $this->hasMany(Book::class);
+    }
+
+    public function hsaPermissionToCreateBook()
+    {
+        //...登入角色符合權限
+    }
 }

@@ -29,7 +29,8 @@ class BookPolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->hasPermissionToCreateBook();
+        // 這裡的 user 是從 middleware('auth') 來的
     }
 
     /**
