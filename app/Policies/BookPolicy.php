@@ -38,7 +38,7 @@ class BookPolicy
      */
     public function update(User $user, Book $book): bool
     {
-        //
+        // $user 是從middleware來的、$book是從Controller呼叫[Book::class, $book]來的
     }
 
     /**
@@ -49,21 +49,21 @@ class BookPolicy
         //
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Book $book): bool
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Book $book): bool
-    {
-        //
-    }
+//    /**
+//     * Determine whether the user can restore the model.
+//     */
+//    public function restore(User $user, Book $book): bool
+//    {
+//        //
+//    }
+//
+//    /**
+//     * Determine whether the user can permanently delete the model.
+//     */
+//    public function forceDelete(User $user, Book $book): bool
+//    {
+//        //
+//    }
 
     public function isAdmin()
     {
