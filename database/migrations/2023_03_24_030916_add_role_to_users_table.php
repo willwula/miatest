@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedInteger('role')->default(\App\Models\User::ROLE_NORMAL)->after('id'); //2 定義於User model
         });
+        // unsignedInteger() 欄位屬性、default() 該欄位預設值、after('id) 此欄位新增於id欄之後
         // migrate 完記得 rollback 看看有沒有正確運作，避免大患
         // $fillable 加上role
     }

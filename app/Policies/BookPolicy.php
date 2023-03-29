@@ -13,7 +13,7 @@ class BookPolicy
      */
     public function viewAny(User $user): bool
     {
-//        return $user->id === $book->user_id;
+        return $user->hasPermissionToViewAnyBooks();
     }
 
     /**

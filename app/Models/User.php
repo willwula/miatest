@@ -66,12 +66,27 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Book::class);
     }
 
-    public function hsaPermissionToCreateBook()
-    {
-        //...登入角色符合權限
-    }
     public function isAdmin()
     {
         return $this->role === self::ROLE_ADMIN;
     }
+    public function isNormalUser()
+    {
+        return $this->role === self::ROLE_NORMAL;
+    }
+    public function hasPermissionToCreateBook()
+    {
+        //...登入角色符合權限
+        return $this->isAdmin() || $this->isNormalUser();
+    }
+    public function hasPermissionToViewAnyBooks()
+    {
+        //...登入角色符合權限
+        return $this->isAdmin() || $this->isNormalUser();
+    }
+//    public function permissions() {
+//        return $this->belongsToMany(Permission::class)->withTimestamps();// 加入時間
+//        // 多對多要小心是會重複增加的，可以改用syn(1,2,3)，$user->permissions()->sync([1,2,3])
+//        // 可研究一下 attatch() 和 detach()
+//    }
 }

@@ -2,35 +2,54 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BookResource;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
-    public function index(Request $request)
+    public function indexxx(Request $request)
     {
 //        $this->authorize('viewAny', [Book::class]); //要去編輯policy
-        $books = Book::latest();
+        $books = Book::latest()->with('user');
+        //with是針對query builder去做的
+        // 如果是Eloquent model instance 要用 load()
+
+        // n+1 problem
+        // 查看log檔案->檢視是否有n+1問題->修改sql語句、減輕DB負擔
+        // BookResource可以改寫為 ->whenloading('users')
+
+
         if ($request->boolean('owned')) {
             $books->where('user_id', Auth::user()->getKey());
         }
 //        $books = Book::where('user_id', Auth::user()->getKey()); //找到自己的書單
 
-//        return Book::all(); //資料太多的話不建議all()，會改用pagenate()
+//        return Book::all(); //資料太多的話不建議all()，會改用paginate()
         return $books->paginate();
     }
+
+    public function index(Request $request)
+    {
+        $this->authorize('viewAny', [Book::class]);
+        $books = Book::latest();
+        dd($request);
+        return $books->paginate();
+    }
+
     public function store(Request $request)
     {
-//        $this->authorize('create', [Book::class]); //這邊的 Book::class 會 call BookPolicy 的 create method
+        $this->authorize('create', [Book::class]); //這邊的 Book::class 會 call BookPolicy 的 create method
         $user = Auth::user();
         $validated = $this->validate($request, [
             'name' => 'required|string|max:255',
             'author' => 'required|string|max:255',
         ]);
 
-         return $user->books()->create($validated);
+        return $user->books()->create($validated);
     }
+
     public function update(Request $request, Book $book)
     {
         // url裏面有book id，update時帶入的id的那本書=>$book  (laravel model binding)
@@ -44,6 +63,7 @@ class BookController extends Controller
         $book->update($validated);
         return $book;
     }
+
     public function destroy(Book $book)
     {
         $this->authorize('delete', [Book::class, $book]);
@@ -67,7 +87,7 @@ class BookController extends Controller
     public function show(Book $book)
     {
         $this->authorize('show', [Book::class, $book]);
-        return $book;
+        return BookResource::make($book);
     }
 
 }

@@ -17,22 +17,19 @@ class AuthController extends Controller
         ]);
 
         // 換成 Jwt 以 api guard 方式進行登入驗證
-        // Auth::attempt()為嘗試登入
+        // Auth::attempt() 使用預設的guard 嘗試去拿驗證的東西，內建應該是email & password（包含hash)
+        // 這邊告訴Auth要以guard('api')方是驗證，預設通常是default
         $token = Auth::guard('api')->attempt($credential);
-//        $token = Auth::attempt($credential);
         abort_if( !$token,Response::HTTP_BAD_REQUEST, "帳號密碼錯誤");
         //驗證成功會給予token、驗證不成功會給你false
-//        return \response(['data' => $token,
-//            'message' => "登入成功"]);
 
-//         Auth::attempt() 使用預設的guard 嘗試去拿驗證的東西，內建應該是email & password（包含hash)
-//        return Auth::attempt($credential);
-        return response(['token' => $token]);
+        return response(['data' => $token]);
     }
 
     public function logout()
     {
         Auth::logout();
+//        return "lougout";
         return response()->noContent(); // 204狀態，前端不需重新渲染
     }
 }
