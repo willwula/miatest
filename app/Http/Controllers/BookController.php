@@ -34,7 +34,7 @@ class BookController extends Controller
     {
         $this->authorize('viewAny', [Book::class]);
         $books = Book::latest();
-        dd($request);
+//        dd($request);
         return $books->paginate();
     }
 
