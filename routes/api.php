@@ -29,4 +29,10 @@ Route::prefix('user')->group( function () {
     });
 });
 
+//OAuth
+Route::prefix('login')->group( function() {
+    Route::get('/auth/github/redirect', [\App\Http\Controllers\AuthController::class, 'redirectToProvider']);
+    Route::get('/auth/github/callback', [\App\Http\Controllers\AuthController::class, 'handleProviderCallback']);
+});
+
 
