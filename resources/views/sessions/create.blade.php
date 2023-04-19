@@ -68,6 +68,10 @@
                 </button>
             </div>
         </form>
+        <div class=" flex items-center justify-center gap-x-4">
+            <a href="/auth/redirect"
+               class="text-sm text-gray-500">Or login from Github <span aria-hidden="true">→</span></a>
+        </div>
     </div>
 </div>
 

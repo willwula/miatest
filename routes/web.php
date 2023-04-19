@@ -23,3 +23,18 @@ Route::post('login', [\App\Http\Controllers\SessionsController::class, 'store'])
 Route::get('register', [\App\Http\Controllers\WebRegisterController::class, 'create']);
 Route::post('register', [\App\Http\Controllers\WebRegisterController::class, 'store']);
 Route::post('logout', [\App\Http\Controllers\SessionsController::class, 'destroy']);
+
+//OAuth
+//Route::prefix('login')->group( function() {
+//    Route::get('/github', [\App\Http\Controllers\AuthController::class, 'redirectToProvider']);
+//    Route::get('/github/callback', [\App\Http\Controllers\AuthController::class, 'handleProviderCallback']);
+//});
+
+Route::get('/auth/redirect', function () {
+    return \Laravel\Socialite\Facades\Socialite::driver('github')->redirect();
+});
+
+Route::get('/auth/callback', function () {
+    return \Laravel\Socialite\Facades\Socialite::driver('github')->user();
+});
+
