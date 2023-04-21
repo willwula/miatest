@@ -69,8 +69,13 @@
             </div>
         </form>
         <div class=" flex items-center justify-center gap-x-4">
-            <a href="/auth/redirect"
-               class="text-sm text-gray-500">Or login from Github <span aria-hidden="true">→</span></a>
+            <a class="text-sm text-gray-500">Or login with </a>
+            <a href="/auth/github"
+               class="text-sm text-gray-500">Github <span aria-hidden="true">→</span></a>
+            <a href="/auth/facebook"
+               class="text-sm text-gray-500">Facebook<span aria-hidden="true">→</span></a>
+            <a href="/auth/google"
+               class="text-sm text-gray-500">Google<span aria-hidden="true">→</span></a>
         </div>
     </div>
 </div>

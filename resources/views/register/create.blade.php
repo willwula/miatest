@@ -80,6 +80,15 @@
             <div class=" flex items-center justify-center gap-x-4">
                 <a href="/login" class="text-sm font-semibold text-gray-500">Already have a account? Log in<span aria-hidden="true">→</span></a>
             </div>
+            <div class=" flex items-center justify-center gap-x-4">
+                <a class="text-sm text-gray-500">Or register with </a>
+                <a href="/auth/github"
+                   class="text-sm text-gray-500">Github <span aria-hidden="true">→</span></a>
+                <a href="/auth/facebook"
+                   class="text-sm text-gray-500">Facebook<span aria-hidden="true">→</span></a>
+                <a href="/auth/google"
+                   class="text-sm text-gray-500">Google<span aria-hidden="true">→</span></a>
+            </div>
         </div>
     </div>
 </x-layout-no-nav>

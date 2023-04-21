@@ -24,17 +24,8 @@ Route::get('register', [\App\Http\Controllers\WebRegisterController::class, 'cre
 Route::post('register', [\App\Http\Controllers\WebRegisterController::class, 'store']);
 Route::post('logout', [\App\Http\Controllers\SessionsController::class, 'destroy']);
 
-//OAuth
-//Route::prefix('login')->group( function() {
-//    Route::get('/github', [\App\Http\Controllers\AuthController::class, 'redirectToProvider']);
-//    Route::get('/github/callback', [\App\Http\Controllers\AuthController::class, 'handleProviderCallback']);
-//});
-
-Route::get('/auth/redirect', function () {
-    return \Laravel\Socialite\Facades\Socialite::driver('github')->redirect();
+//OAuth 第三方登入
+Route::prefix('auth')->group( function() {
+    Route::get('/{provider}/', [\App\Http\Controllers\ThirdPartyAuthController::class, 'redirectToProvider']);
+    Route::get('/{provider}/callback', [\App\Http\Controllers\ThirdPartyAuthController::class, 'handleProviderCallback']);
 });
-
-Route::get('/auth/callback', function () {
-    return \Laravel\Socialite\Facades\Socialite::driver('github')->user();
-});
-
