@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->bigInteger('facebook_id')->nullable()->after('github_id');
-            $table->bigInteger('google_id')->nullable()->after('facebook_id');
+            $table->string('facebook_id')->nullable()->after('github_id');
+            $table->string('google_id')->nullable()->after('facebook_id');
         });
     }
 

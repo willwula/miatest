@@ -20,7 +20,7 @@ class ThirdPartyAuthController extends Controller
     public function handleProviderCallback($provider)
     {
         $providerUser = Socialite::driver($provider)->user();
-//        dd($providerUser);
+//        dd($providerUser->email);
 
         $user = User::updateOrCreate([
             'email' => $providerUser->email, //這邊用email當key值查詢，官方文件是用github_id
