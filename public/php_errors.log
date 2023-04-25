@@ -1,0 +1,1 @@
+[21-Apr-2023 06:44:16 UTC] PHP Fatal error:  Cannot redeclare App\Providers\EventServiceProvider::$listen in /Users/mia/Sites/collectingBooks/app/Providers/EventServiceProvider.php on line 38
