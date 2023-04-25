@@ -76,6 +76,8 @@
                class="text-sm text-gray-500">Facebook<span aria-hidden="true">→</span></a>
             <a href="/auth/google"
                class="text-sm text-gray-500">Google<span aria-hidden="true">→</span></a>
+            <a href="/auth/line"
+               class="text-sm text-gray-500">Line<span aria-hidden="true">→</span></a>
         </div>
     </div>
 </div>
