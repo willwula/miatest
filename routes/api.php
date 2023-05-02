@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PasswordResetLinkController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('user')->group( function () {
+    Route::post('forgot-password',[PasswordResetLinkController::class,'store']);
+    Route::get('reset-password/{token}', function () {
+        return '449重設密碼畫面';
+    })->name('password.reset');
+    Route::post('reset-password', [NewPasswordController::class, 'store']);
+
     Route::post('register', [\App\Http\Controllers\RegisterController::class, 'register']);
     Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
     Route::middleware('auth:api')->group(function () {

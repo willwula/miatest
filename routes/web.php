@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PasswordResetLinkController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,7 +31,11 @@ Route::prefix('auth')->group( function() {
     Route::get('/{provider}/callback', [\App\Http\Controllers\ThirdPartyAuthController::class, 'handleProviderCallback']);
 });
 
+//密碼忘記
+//Route::post('forgot-password',[PasswordResetLinkController::class,'store']);
+
+
 //mailtrap
-Route::post('sendMail', function () {
+Route::get('sendMail', function () {
     Mail::to('abc@abc.com')->send(new \App\Mail\FirstMail());
 });
