@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -16,11 +17,17 @@ class FirstMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(
+        protected User $user,
+    )
     {
         //
     }
 
+    public function build()
+    {
+        return $this->from('MAIL_FROM_ADDRESS')->view('emails.register-success');
+    }
     /**
      * Get the message envelope.
      */
@@ -37,7 +44,10 @@ class FirstMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.register-success',
+            with: [
+                'userName' => $this->user->name,
+            ],
         );
     }
 

@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('MAIL_MAILER', 'smtp'),
+    'default' => env('MAIL_MAILER', 'log'),
 
     /*
     |--------------------------------------------------------------------------
@@ -76,7 +76,10 @@ return [
         'array' => [
             'transport' => 'array',
         ],
-
+//有時候，我們設定要用來寄送郵件的外部服務可能沒辦法用。因為這種情況，所以最好定義一個或多個備用的郵件寄送設定，以免主要寄送 Driver 無法使用。
+//
+//若要定義備用 Mailer，請在 mail 設定檔中定義一個使用 failover Transport的 Mailer。failover Mailer的設定值呢列應包含一個 mailers 的陣列，
+//並在其中參照用來寄送郵件之各個 Driver 的順序：
         'failover' => [
             'transport' => 'failover',
             'mailers' => [
@@ -102,6 +105,10 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    'reply_to' => [
+        'address' => 'wfh318@gmail.com',
+        'name' => 'susuuncle',
+    ],
     /*
     |--------------------------------------------------------------------------
     | Markdown Mail Settings

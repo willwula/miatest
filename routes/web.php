@@ -26,6 +26,11 @@ Route::post('logout', [\App\Http\Controllers\SessionsController::class, 'destroy
 
 //OAuth 第三方登入
 Route::prefix('auth')->group( function() {
-    Route::get('/{provider}/', [\App\Http\Controllers\ThirdPartyAuthController::class, 'redirectToProvider']);
+    Route::get('{provider}', [\App\Http\Controllers\ThirdPartyAuthController::class, 'redirectToProvider']);
     Route::get('/{provider}/callback', [\App\Http\Controllers\ThirdPartyAuthController::class, 'handleProviderCallback']);
+});
+
+//mailtrap
+Route::post('sendMail', function () {
+    Mail::to('abc@abc.com')->send(new \App\Mail\FirstMail());
 });

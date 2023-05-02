@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RegisterSuccessMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -46,12 +49,20 @@ class RegisterController extends Controller
             )
         );
 
+        // 寄送註冊成功通知信
+        Mail::to($user->email)->send(new RegisterSuccessMail($user));
+//dd($user);
+//        return view('emails.register-success', ['user' => $user]);
+//        Auth::login($user);
+
+//        return redirect('/home');
+
 //        return 'registered';
 //        return response([
 //            'data' => $user,
 //            'message' => "註冊成功"
 //            ], 201);
-        return \response($user,201);
+//        return \response($user,201);
     }
 
 }

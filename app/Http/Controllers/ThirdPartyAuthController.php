@@ -12,6 +12,8 @@ class ThirdPartyAuthController extends Controller
 {
     public function redirectToProvider($provider)
     {
+//        dd($provider);
+//        dd(Socialite::driver($provider));
         // 轉址到第三方認證
         return Socialite::driver($provider)->redirect();
     }
@@ -19,6 +21,7 @@ class ThirdPartyAuthController extends Controller
 
     public function handleProviderCallback($provider)
     {
+//        dd(Socialite::driver($provider)->user());
         $providerUser = Socialite::driver($provider)->user();
 //        dd($providerUser);
 
@@ -59,13 +62,11 @@ class ThirdPartyAuthController extends Controller
                 ->stateless() //此次驗證請求不需使用 Session，使請求更輕量化
                 ->userFromToken($request->input('access_token')); // 這裡的access_token是前端另外處理的嗎？
             // 用前端傳過來（第三方傳給User）的 token，重新向第三方服務驗證此Token是否正確，並取得user資料
-
         } catch (\Throwable $exception) { //Throwable可同時捕捉到 exception 和 error
             logger()->error('取得第三方使用者失敗', ['exception' => $exception]);
             // 可以用 terminal 指令 tail -f storage/logs/laravel.log 查閱
             abort(Response::HTTP_UNAUTHORIZED);
         }
-
         return $this->getFinalValidToken($thirdPartyUser, 'facebook_user_id');
 
     }
