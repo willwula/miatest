@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $page_description = 'susu suck';
+    return view('welcome', ['page_description' => $page_description]);
 });
 Route::get('login', function () {
     return view('sessions.create');

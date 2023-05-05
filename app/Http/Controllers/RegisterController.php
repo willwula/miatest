@@ -9,7 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-
+use Illuminate\Auth\Events\Registered;
 class RegisterController extends Controller
 {
     public function register(Request $request)
@@ -48,10 +48,10 @@ class RegisterController extends Controller
                 $validated, ['password' => Hash::make($validated['password'])]
             )
         );
-
+        event(new Registered($user));
         // 寄送註冊成功通知信
         Mail::to($user->email)->send(new RegisterSuccessMail($user));
-//dd($user);
+dd($user);
 //        return view('emails.register-success', ['user' => $user]);
 //        Auth::login($user);
 

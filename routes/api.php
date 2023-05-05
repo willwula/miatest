@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\NewPasswordController;
 use App\Http\Controllers\PasswordResetLinkController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,12 +20,25 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('prerender',[\App\Http\Controllers\PrerenderingController::class, 'prerender']);
+
 Route::prefix('user')->group( function () {
     Route::post('forgot-password',[PasswordResetLinkController::class,'store']);
     Route::get('reset-password/{token}', function () {
         return '449重設密碼畫面';
     })->name('password.reset');
     Route::post('reset-password', [NewPasswordController::class, 'store']);
+
+    //Email驗證
+    Route::get('/email/verify', function () {
+        return view('auth.verify-email');
+    })->middleware('auth')->name('verification.notice');
+
+    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
+        return redirect('/home');
+    })->middleware(['auth', 'signed'])->name('verification.verify');
+
 
     Route::post('register', [\App\Http\Controllers\RegisterController::class, 'register']);
     Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
